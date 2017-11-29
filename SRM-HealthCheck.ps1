@@ -26,7 +26,7 @@ This has been tested with PowerCLI 5.8 Release 1, vSphere 5.5/6.0U2, and SRM 5.8
 
 function Get-SRMHealth(){
 
-$ProtectedDS = Get-Datastore DR_* | where ({$_.Name -notlike "DR_SRM_PH*"})
+$ProtectedDS = Get-Datastore DR_* | where ({$_.Name -notlike "PlacedholderDSName"})
 $ProtectedVM = $ProtectedDS | Get-VM 
 $date = (Get-Date).tostring("yyyyMMdd")
 $outputfile = "D:\Output\All-SRM_Health_Chk_$Date.csv"
