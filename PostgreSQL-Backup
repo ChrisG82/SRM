@@ -1,0 +1,20 @@
+@echo off
+net stop vmware-dr
+   for /f "tokens=1-4 delims=/ " %%i in ("%date%") do (
+     set dow=%%i
+     set month=%%j
+     set day=%%k
+     set year=%%l
+   )
+   set datestr=%month%_%day%_%year%
+   echo datestr is %datestr%
+    
+   set BACKUP_FILE=PostGresDBBackup_%datestr%.backup
+   echo backup file name is %BACKUP_FILE%
+   SET PGPASSWORD=VMware1!
+   echo on
+   cd "c:\Program Files\VMware\VMware vCenter Site Recovery Manager Embedded Database\bin\"
+   pg_dump.exe -Fc --host 127.0.0.1 --port 5678 --username admin srm_db > %BACKUP_FILE%
+net start vmware-dr
+dir %BACKUP_FILE%
+pause
